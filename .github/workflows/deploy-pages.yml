@@ -18,10 +18,11 @@ concurrency:
 
 jobs:
   deploy:
+    runs-on: ubuntu-latest
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -34,23 +35,6 @@ jobs:
         run: |
           mkdir -p _site
           cp -R Houston_Web-page Basenji_Web-page _site/
-          cat > _site/index.html <<'EOF'
-          <!doctype html>
-          <html lang="en">
-          <head>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Manual QA Portfolio</title>
-          </head>
-          <body>
-            <h1>Manual QA Portfolio</h1>
-            <ul>
-              <li><a href="./Houston_Web-page/">Houston Web-page</a></li>
-              <li><a href="./Basenji_Web-page/">Basenji Web-page</a></li>
-            </ul>
-          </body>
-          </html>
-          EOF
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
